@@ -46,7 +46,7 @@ class Alien {
   }
 
   void inScreen() {
-    if (y == height) {
+    if (y >= height) {
       fill(color(255, 0, 0));
       noLoop();
       fill(255, 0, 0);
