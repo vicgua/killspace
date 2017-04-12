@@ -23,6 +23,7 @@ class Boss extends Alien {
     if (lives <= 0) {
       contador += 20;
       alive = false;
+      hasBoss = false;
     }
   }
 

@@ -3,11 +3,11 @@ import java.util.*;
 
 
 /* TODO
- * Nave nodriza
-   * Proyectiles
-   * Desplazamiento horizontal, vy = 0
- * Sonidos
-*/
+ * - Nave nodriza
+ *   - Proyectiles
+ *   - Desplazamiento horizontal, vy = 0
+ * - Sonidos
+ */
 
 
 //PREPARATIVOS: 
@@ -30,6 +30,7 @@ PImage alien1, alien2;
 List<Alien> aliens;
 Nave nave;
 int anum;
+boolean hasBoss = false;
 
 Minim minim;
 AudioPlayer explosion_s, game_over_s;
@@ -57,12 +58,12 @@ void setup () {
   textFont (numeros);
   espacio=loadImage("earth-11014_640.jpg");
   cohete=loadImage("Night Raider 1.png");
-  
+
   minim = new Minim(this);
   explosion_s = minim.loadFile("explosion.wav");
   game_over_s = minim.loadFile("game_over.wav");
   death_s     = minim.loadSample("alien_death.mp3", 512);
-  
+
   // DEBUG
   contador = 59;
 }
@@ -78,16 +79,17 @@ void draw() {
   invasores();
   fill(255, 242, 0);
   text(contador, 30, 30);  
-  if (contador % 15 == 0 && contador != lastAdded) {
+  while (!hasBoss && anum < 6 && contador >= lastAdded + 15) {
     anum++;
     AlienVars.vy += .2;
-    lastAdded = contador;
+    lastAdded += 15;
   }
   if (contador % 60 == 0 && contador >= 60 && contador != lastBoss) {
-    anum = 2 + 1 /*(boss)*/;
+    anum = 2 + 1 /* (boss) */;
     AlienVars.vy = 3;
     aliens.add(new Boss(width / 2, 75));
     lastBoss = contador;
+    hasBoss = true;
   }
   finJuego();
 }

@@ -42,7 +42,7 @@ class Alien {
     image(deathImg, x-40, y-40);
     death_s.trigger();
     alive = false;
-    contador++;
+    if (!hasBoss) contador++;
   }
 
   void inScreen() {
