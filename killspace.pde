@@ -59,6 +59,7 @@ void setup () {
   AlienVars.img = loadImage("enemy.png");
   AlienVars.deathImg = loadImage("Start Explosion.png");
   AlienVars.bossImg = loadImage("boss.png");
+  AlienVars.bossDeathImg = loadImage("Boss Explosion.png");
   AlienVars.proyImg = loadImage("proyectil.png");
   ProyectilVars.col = color(255, 242, 0);
   aliens = new ArrayList<Alien>();

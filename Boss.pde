@@ -31,6 +31,7 @@ class Boss extends Alien {
     lives--;
     if (lives <= 0) {
       death_b.play(); // Me gustaria justarlo con una o mas explosiones, las normales sirven
+      image(AlienVars.bossDeathImg, x - 160, y - 160);
       contador += 20;
       alive = false;
     }

@@ -1,7 +1,7 @@
 static class AlienVars {
   static float vx, vy, bossVx, bossVy, r, bossR, proyVxMul, 
     proyVyMul, proyR, proyProb;
-  static PImage img, deathImg, bossImg, proyImg;
+  static PImage img, deathImg, bossImg, bossDeathImg, proyImg;
 }
 
 class Alien {
