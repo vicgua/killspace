@@ -10,10 +10,16 @@ class Boss extends Alien {
     lives = 10;
   }
 
+  void show() {
+    tint(255, 255 * (1 - .075 * (10 - lives)));
+    super.show();
+    noTint();
+  }
+
   void move() {
     if (!alive) return;
     y += vy;
-    if ((x + r + vx >= width) ||(x - r + vx <= 0)) vx *= -1;
+    if ((x + r + vx >= width) || (x - r + vx <= 0)) vx *= -1;
     x += vx;
     if (random(0, 1) <= AlienVars.proyProb) {
       pnum++;
