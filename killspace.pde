@@ -18,8 +18,8 @@ int alien1y, alien2y;
 //velocidad de caida de los invasores
 int vyAlien=1;
 
-int contador = 0;
-int lastAdded = 0, lastBoss = 0;
+int contador;
+int lastAdded, lastBoss;
 int diametroAlien=32;
 PFont palabra;
 PFont numeros;
@@ -33,6 +33,7 @@ Nave nave;
 int anum;
 int pnum;
 Boss boss = null;
+Button endGameButton = null;
 
 Minim minim;
 AudioPlayer explosion_s, game_over_s, death_b;
@@ -41,9 +42,31 @@ AudioSample death_s, boss_crash;
 void setup () {
   size(600, 600);
   frameRate(25);
-  anum = 2;
-  pnum = 0;
   nave = new Nave(loadImage("Night Raider 1.png"), height - 50);
+  AlienVars.img = loadImage("enemy.png");
+  AlienVars.deathImg = loadImage("Start Explosion.png");
+  AlienVars.bossImg = loadImage("boss.png");
+  AlienVars.bossDeathImg = loadImage("Boss Explosion.png");
+  AlienVars.proyImg = loadImage("proyectil.png");
+  ProyectilVars.col = color(255, 242, 0);
+
+  //invasores aleatoriamente situados horizontalmente y arriba (y=0)
+  numeros=createFont("TimesNewRomanPS-BoldMT-20", 20);
+  espacio=loadImage("earth-11014_640.jpg");
+  cohete=loadImage("Night Raider 1.png");
+
+  minim = new Minim(this);
+  explosion_s = minim.loadFile("explosion.wav");
+  game_over_s = minim.loadFile("game_over.wav");
+  death_b     = minim.loadFile("boss_death.wav"); //
+  death_s     = minim.loadSample("alien_death.mp3", 512);
+  boss_crash  = minim.loadSample("boss_crash.mp3", 512); //
+  reset();
+}
+
+void reset() {
+  loop();
+  endGameButton = null;
   AlienVars.vx = 0;
   AlienVars.vy = 4;
   AlienVars.bossVx = 4;
@@ -56,26 +79,11 @@ void setup () {
   AlienVars.bossR = 76.5;
   AlienVars.proyR = 10; // Radio proyectil
   AlienVars.proyProb = .02;
-  AlienVars.img = loadImage("enemy.png");
-  AlienVars.deathImg = loadImage("Start Explosion.png");
-  AlienVars.bossImg = loadImage("boss.png");
-  AlienVars.bossDeathImg = loadImage("Boss Explosion.png");
-  AlienVars.proyImg = loadImage("proyectil.png");
-  ProyectilVars.col = color(255, 242, 0);
   aliens = new ArrayList<Alien>();
-
-  //invasores aleatoriamente situados horizontalmente y arriba (y=0)
-  numeros=createFont("TimesNewRomanPS-BoldMT-20", 20);
-  textFont (numeros);
-  espacio=loadImage("earth-11014_640.jpg");
-  cohete=loadImage("Night Raider 1.png");
-
-  minim = new Minim(this);
-  explosion_s = minim.loadFile("explosion.wav");
-  game_over_s = minim.loadFile("game_over.wav");
-  death_b     = minim.loadFile("boss_death.wav"); //
-  death_s     = minim.loadSample("alien_death.mp3", 512);
-  boss_crash  = minim.loadSample("boss_crash.mp3", 512); //
+  boss = null;
+  anum = 2;
+  pnum = 0;
+  lastAdded = lastBoss = 0;
   // DEBUG
   contador = 59;
 }
@@ -90,6 +98,8 @@ void draw() {
   //invasores
   invasores();
   fill(255, 242, 0);
+  textAlign(RIGHT, BASELINE);
+  textFont (numeros);
   text(contador, 30, 30);  
   while (boss == null && anum < 6 && contador >= lastAdded + 15) {
     anum++;
@@ -114,11 +124,11 @@ void invasores() {
       as.remove();
     }
   }
-  
+
   if (boss != null && !boss.alive) {
     boss = null;
   }
-  
+
   while (aliens.size() < anum + pnum) {
     aliens.add(new Alien(random(35, width - 35), 0));
   }
@@ -134,7 +144,8 @@ void invasores() {
 
 //DISPARO (cuAndo hacemos click)
 void mousePressed () {
-  nave.shoot();
+  if (endGameButton == null) nave.shoot();
+  else if (endGameButton.clicked()) reset();
 }
 
 //FINAL DEL JUEGO 
@@ -142,4 +153,18 @@ void finJuego() {
   for (Alien a : aliens) {
     a.inScreen();
   }
+}
+
+void gameOver() {
+  noLoop();
+  fill(255, 0, 0);
+  palabra=createFont("WalkwayBold-48.vlw", 5);
+  textFont (palabra, 60);
+  textAlign(LEFT, BASELINE);
+  text("GAME OVER", 130, 300);
+  endGameButton = new Button(width / 3, height / 8);
+  endGameButton.move(width - width / 1.5, height - height / 2.5);
+  endGameButton.setColors(#00FF00, #FF0000);
+  endGameButton.txt = "Play again";
+  endGameButton.show();
 }

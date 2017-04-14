@@ -48,21 +48,12 @@ class Alien {
 
   void inScreen() {
     if (y >= height) {
-      fill(color(255, 0, 0));
-      noLoop();
-      fill(255, 0, 0);
-      palabra=createFont("WalkwayBold-48.vlw", 5);
-      textFont (palabra, 60);
-      text("GAME OVER", 130, 300);
       game_over_s.play();
+      gameOver();
     } else if ((x > mouseX - 15 && x < mouseX + 15) && (y > height - 65 && y < height - 35)) {
       image(deathImg, mouseX-50, height-100); 
-      noLoop();
-      fill(255, 0, 0);
-      palabra=createFont("WalkwayBold-48.vlw", 5);
-      textFont (palabra, 60);
-      text("GAME OVER", 130, 300);
       explosion_s.play();
+      gameOver();
     }
   }
 }
