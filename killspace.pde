@@ -49,7 +49,9 @@ void setup () {
   AlienVars.bossVx = 4;
   AlienVars.bossVy = 0;
   AlienVars.proyVxMul = 0;
-  AlienVars.proyVyMul = 3; // Velocidad proyectil
+  // Multiplicador velocidad proyectil
+  // i.e.: si 3 => velocidad proyectil = 3 * v alien
+  AlienVars.proyVyMul = 3;
   AlienVars.r = 16;
   AlienVars.bossR = 76.5;
   AlienVars.proyR = 10; // Radio proyectil
