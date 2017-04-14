@@ -1,5 +1,6 @@
 static class AlienVars {
-  static float vx, vy, bossVx, bossVy, r, bossR, proyVx, proyVy, proyR;
+  static float vx, vy, bossVx, bossVy, r, bossR, proyVxMul, 
+    proyVyMul, proyR, proyProb;
   static PImage img, deathImg, bossImg, proyImg;
 }
 
@@ -42,7 +43,7 @@ class Alien {
     image(deathImg, x-40, y-40);
     death_s.trigger();
     alive = false;
-    if (!hasBoss) contador++;
+    if (boss == null) contador++;
   }
 
   void inScreen() {

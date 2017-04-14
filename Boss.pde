@@ -11,11 +11,14 @@ class Boss extends Alien {
   }
 
   void move() {
-    println("Move called", alive);
     if (!alive) return;
     y += vy;
     if ((x + r + vx >= width) ||(x - r + vx <= 0)) vx *= -1;
     x += vx;
+    if (random(0, 1) <= AlienVars.proyProb) {
+      pnum++;
+      aliens.add(new ProyectilBoss(x, y));
+    };
   }
 
   void die() {
@@ -24,7 +27,6 @@ class Boss extends Alien {
       death_b.play(); // Me gustaria justarlo con una o mas explosiones, las normales sirven
       contador += 20;
       alive = false;
-      hasBoss = false;
     }
     else  boss_crash.trigger(); // Suena cuando es golpeado
 

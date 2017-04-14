@@ -1,23 +1,22 @@
 class ProyectilBoss extends Alien {
- 
+
   ProyectilBoss(float x, float y) {
     super(x, y);
     img = AlienVars.proyImg;
-    vx = AlienVars.proyVx;
-    vy = AlienVars.proyVy;
+    vx = AlienVars.proyVxMul * AlienVars.vx;
+    vy = AlienVars.proyVyMul * AlienVars.vy;
     r = AlienVars.proyR;
   }
-  
-  void move() {
-    if (!alive) return;
-    x += vx;
-    y += vy;
+
+  void die() {
+    return; // Indestructible
   }
-  void inScreen(){
+
+  void inScreen() {
     if (y >= height) {
-      alive = false; 
-    }
-    else if ((x > mouseX - 15 && x < mouseX + 15) && (y > height - 65 && y < height - 35)) {
+      alive = false;
+      pnum--;
+    } else if ((x > mouseX - 15 && x < mouseX + 15) && (y > height - 65 && y < height - 35)) {
       image(deathImg, mouseX-50, height-100); 
       noLoop();
       fill(255, 0, 0);

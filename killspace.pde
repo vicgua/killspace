@@ -31,7 +31,8 @@ PImage proyectil_boss;
 List<Alien> aliens;
 Nave nave;
 int anum;
-boolean hasBoss = false;
+int pnum;
+Boss boss = null;
 
 Minim minim;
 AudioPlayer explosion_s, game_over_s, death_b;
@@ -41,16 +42,18 @@ void setup () {
   size(600, 600);
   frameRate(25);
   anum = 2;
+  pnum = 0;
   nave = new Nave(loadImage("Night Raider 1.png"), height - 50);
   AlienVars.vx = 0;
   AlienVars.vy = 4;
   AlienVars.bossVx = 4;
   AlienVars.bossVy = 0;
-  AlienVars.proyVx = 0; //
-  AlienVars.proyVy = 4; // Velocidad proyectil
+  AlienVars.proyVxMul = 0;
+  AlienVars.proyVyMul = 3; // Velocidad proyectil
   AlienVars.r = 16;
   AlienVars.bossR = 76.5;
   AlienVars.proyR = 10; // Radio proyectil
+  AlienVars.proyProb = .02;
   AlienVars.img = loadImage("enemy.png");
   AlienVars.deathImg = loadImage("Start Explosion.png");
   AlienVars.bossImg = loadImage("boss.png");
@@ -85,24 +88,17 @@ void draw() {
   invasores();
   fill(255, 242, 0);
   text(contador, 30, 30);  
-  while (!hasBoss && anum < 6 && contador >= lastAdded + 15) {
+  while (boss == null && anum < 6 && contador >= lastAdded + 15) {
     anum++;
     AlienVars.vy += .2;
     lastAdded += 15;
   }
   if (contador % 60 == 0 && contador >= 60 && contador != lastBoss) {
-    anum = 2 + 1 /* (boss) */;
+    anum = 2;
     AlienVars.vy = 3;
-    aliens.add(new Boss(width / 2, 75));
+    boss = new Boss(width / 2, 75);
     lastBoss = contador;
-    hasBoss = true;
   }
-  /*--------------------------------------------------------------------------------------------------*/
-  if (hasBoss /* && algo para controlar nº de bombas*/){
-    float x = Boss.x;                // No se como cojer simplemente la x del boss en ese momento
-    aliens.add(new ProyectilBoss(x, 75));
-  }
-  /*-------------------------------------------------------------------------------------------------- */
 
   finJuego();
 }
@@ -115,12 +111,21 @@ void invasores() {
       as.remove();
     }
   }
-  while (aliens.size() < anum) {
+  
+  if (boss != null && !boss.alive) {
+    boss = null;
+  }
+  
+  while (aliens.size() < anum + pnum) {
     aliens.add(new Alien(random(35, width - 35), 0));
   }
   for (Alien a : aliens) {
     a.show();
     a.move();
+  }
+  if (boss != null) {
+    boss.show();
+    boss.move();
   }
 }
 
