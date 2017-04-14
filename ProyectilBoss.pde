@@ -1,6 +1,6 @@
-class Proyectil_boss extends Alien {
+class ProyectilBoss extends Alien {
  
-  Proyectil_boss(float x, float y) {
+  ProyectilBoss(float x, float y) {
     super(x, y);
     img = AlienVars.proyImg;
     vx = AlienVars.proyVx;

@@ -100,7 +100,7 @@ void draw() {
   /*--------------------------------------------------------------------------------------------------*/
   if (hasBoss /* && algo para controlar nº de bombas*/){
     float x = Boss.x;                // No se como cojer simplemente la x del boss en ese momento
-    aliens.add(new Proyectil_boss(x, 75));
+    aliens.add(new ProyectilBoss(x, 75));
   }
   /*-------------------------------------------------------------------------------------------------- */
 
