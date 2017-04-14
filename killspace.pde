@@ -27,14 +27,15 @@ PImage espacio;
 PImage cohete;
 PImage explosion;
 PImage alien1, alien2;
+PImage proyectil_boss;
 List<Alien> aliens;
 Nave nave;
 int anum;
 boolean hasBoss = false;
 
 Minim minim;
-AudioPlayer explosion_s, game_over_s;
-AudioSample death_s;
+AudioPlayer explosion_s, game_over_s, death_b;
+AudioSample death_s, boss_crash;
 
 void setup () {
   size(600, 600);
@@ -45,11 +46,15 @@ void setup () {
   AlienVars.vy = 4;
   AlienVars.bossVx = 4;
   AlienVars.bossVy = 0;
+  AlienVars.proyVx = 0; //
+  AlienVars.proyVy = 4; // Velocidad proyectil
   AlienVars.r = 16;
   AlienVars.bossR = 76.5;
+  AlienVars.proyR = 10; // Radio proyectil
   AlienVars.img = loadImage("enemy.png");
   AlienVars.deathImg = loadImage("Start Explosion.png");
   AlienVars.bossImg = loadImage("boss.png");
+  AlienVars.proyImg = loadImage("proyectil.png");
   ProyectilVars.col = color(255, 242, 0);
   aliens = new ArrayList<Alien>();
 
@@ -62,8 +67,9 @@ void setup () {
   minim = new Minim(this);
   explosion_s = minim.loadFile("explosion.wav");
   game_over_s = minim.loadFile("game_over.wav");
+  death_b     = minim.loadFile("boss_death.wav"); //
   death_s     = minim.loadSample("alien_death.mp3", 512);
-
+  boss_crash  = minim.loadSample("boss_crash.mp3", 512); //
   // DEBUG
   contador = 59;
 }
@@ -91,6 +97,13 @@ void draw() {
     lastBoss = contador;
     hasBoss = true;
   }
+  /*--------------------------------------------------------------------------------------------------*/
+  if (hasBoss /* && algo para controlar nº de bombas*/){
+    float x = Boss.x;                // No se como cojer simplemente la x del boss en ese momento
+    aliens.add(new Proyectil_boss(x, 75));
+  }
+  /*-------------------------------------------------------------------------------------------------- */
+
   finJuego();
 }
 

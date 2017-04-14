@@ -21,10 +21,13 @@ class Boss extends Alien {
   void die() {
     lives--;
     if (lives <= 0) {
+      death_b.play(); // Me gustaria justarlo con una o mas explosiones, las normales sirven
       contador += 20;
       alive = false;
       hasBoss = false;
     }
+    else  boss_crash.trigger(); // Suena cuando es golpeado
+
   }
 
   void inScreen() {
