@@ -4,7 +4,7 @@ static class ProyectilVars {
 
 class Proyectil {
   float x, y_0;
-  Alien killed;
+  private Alien killed;
 
   Proyectil(float x, float y_0) {
     this.x = x;

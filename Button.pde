@@ -1,6 +1,6 @@
 class Button {
-  float x, y, dx, dy;
-  color f, s;
+  private float x, y, dx, dy;
+  private color f, s;
   String txt;
 
   Button(float dx, float dy) {

@@ -148,6 +148,15 @@ void mousePressed () {
   else if (endGameButton.clicked()) reset();
 }
 
+void mouseMoved() {
+  if (endGameButton == null) {
+    noCursor();
+  } else {
+    if (endGameButton.clicked()) cursor(HAND);
+    else cursor(ARROW);
+  }
+}
+
 //FINAL DEL JUEGO 
 void finJuego() {
   for (Alien a : aliens) {
