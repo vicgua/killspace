@@ -30,15 +30,14 @@ class Boss extends Alien {
   void die() {
     lives--;
     if (lives <= 0) {
-      death_b.play(); // Me gustaria justarlo con una o mas explosiones, las normales sirven
+      death_b.play();
       image(AlienVars.bossDeathImg, x - 160, y - 160);
       contador += 20;
       alive = false;
-    }
-    else  boss_crash.trigger(); // Suena cuando es golpeado
-
+    } else boss_crash.trigger();
   }
 
   void inScreen() {
+    return; // Mai no pot sortir de la pantalla
   }
 }

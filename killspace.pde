@@ -84,8 +84,7 @@ void reset() {
   anum = 2;
   pnum = 0;
   lastAdded = lastBoss = 0;
-  // DEBUG
-  contador = 59;
+  contador = 0;
 }
 
 void draw() {
