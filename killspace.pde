@@ -78,7 +78,7 @@ void reset() {
   AlienVars.r = 16;
   AlienVars.bossR = 76.5;
   AlienVars.proyR = 10; // Radio proyectil
-  AlienVars.proyProb = .02;
+  AlienVars.proyProb = .05;
   aliens = new ArrayList<Alien>();
   boss = null;
   anum = 2;
@@ -148,12 +148,8 @@ void mousePressed () {
 }
 
 void mouseMoved() {
-  if (endGameButton == null) {
-    noCursor();
-  } else {
-    if (endGameButton.clicked()) cursor(HAND);
-    else cursor(ARROW);
-  }
+  if (endGameButton != null && endGameButton.clicked())
+    cursor(HAND);
 }
 
 //FINAL DEL JUEGO 

@@ -1,5 +1,6 @@
 class Boss extends Alien {
-  int lives;
+  private int lives;
+  private int lastProj;
 
   Boss(float x, float y) {
     super(x, y);
@@ -8,6 +9,7 @@ class Boss extends Alien {
     vy = AlienVars.bossVy;
     r = AlienVars.bossR;
     lives = 10;
+    lastProj = 0;
   }
 
   void show() {
@@ -21,9 +23,10 @@ class Boss extends Alien {
     y += vy;
     if ((x + r + vx >= width) || (x - r + vx <= 0)) vx *= -1;
     x += vx;
-    if (random(0, 1) <= AlienVars.proyProb) {
+    if (millis() >= lastProj + 500 && random(0, 1) <= AlienVars.proyProb) {
       pnum++;
       aliens.add(new ProyectilBoss(x, y));
+      lastProj = millis();
     };
   }
 
