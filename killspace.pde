@@ -150,6 +150,7 @@ void mousePressed () {
 void mouseMoved() {
   if (endGameButton != null && endGameButton.clicked())
     cursor(HAND);
+  else cursor(ARROW);
 }
 
 //FINAL DEL JUEGO 
